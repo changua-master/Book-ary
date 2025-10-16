@@ -1,0 +1,214 @@
+<?php
+require_once __DIR__ . '/../config/app.php';
+require_once __DIR__ . '/../config/database.php';
+require_once __DIR__ . '/../app/Middleware/AuthMiddleware.php';
+require_once __DIR__ . '/../app/Models/Loan.php';
+
+// Verificar autenticación
+AuthMiddleware::requireStudent('../public/login.php');
+
+// Obtener información del usuario
+$userId = AuthMiddleware::id();
+$username = AuthMiddleware::username();
+
+// Obtener préstamos del usuario
+$loanModel = new Loan($conexion);
+$activeLoans = $loanModel->byUser($userId, 'activo');
+?>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis Préstamos - <?php echo APP_NAME; ?></title>
+    <link rel="stylesheet" href="..\public\assets\css\bookary.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="student-layout">
+    
+    <!-- Sidebar -->
+    <div class="sidebar student-sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h3>Mi Biblioteca</h3>
+            <button class="sidebar-close" id="closeSidebar">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <ul class="sidebar-menu">
+            <li class="sidebar-item">
+                <a href="<?php echo url('student/dashboard.php'); ?>" class="sidebar-link">
+                    <i class="fas fa-home"></i> Inicio
+                </a>
+            </li>
+            <li class="sidebar-item">
+                <a href="<?php echo url('student/catalogo.php'); ?>" class="sidebar-link">
+                    <i class="fas fa-books"></i> Catálogo
+                </a>
+            </li>
+            <li class="sidebar-item">
+                <a href="<?php echo url('student/mis-prestamos.php'); ?>" class="sidebar-link active">
+                    <i class="fas fa-book-reader"></i> Mis Préstamos
+                </a>
+            </li>
+            <li class="sidebar-item">
+                <a href="<?php echo url('student/historial.php'); ?>" class="sidebar-link">
+                    <i class="fas fa-history"></i> Historial
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Navbar -->
+    <nav class="navbar student-navbar">
+        <div class="container">
+            <div class="navbar-content">
+                <button class="toggle-sidebar" id="toggleSidebar">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <a href="<?php echo url('student/dashboard.php'); ?>" class="navbar-brand">Book<span>ary</span></a>
+                <ul class="navbar-nav">
+                    <li>
+                        <span style="color: var(--color-white); margin-right: 1rem;">
+                            <i class="fas fa-user-circle"></i> <?php echo e($username); ?>
+                        </span>
+                    </li>
+                    <li>
+                        <a href="<?php echo url('public/logout.php'); ?>" class="btn btn-secondary btn-sm">
+                            <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Contenido Principal -->
+    <main class="main-content" id="mainContent">
+        <div class="container section">
+            
+            <!-- Header -->
+            <div style="margin-bottom: 2rem;">
+                <h1 style="color: var(--color-primary); font-family: 'Playfair Display', serif; margin: 0 0 0.5rem 0;">
+                    Mis Préstamos Activos
+                </h1>
+                <p style="color: var(--color-secondary); margin: 0;">
+                    Libros que tienes prestados actualmente
+                </p>
+            </div>
+
+            <?php if (empty($activeLoans)): ?>
+                <!-- No hay préstamos -->
+                <div class="card" style="text-align: center; padding: 3rem;">
+                    <i class="fas fa-book-reader" style="font-size: 4rem; color: var(--color-secondary); opacity: 0.3; margin-bottom: 1rem;"></i>
+                    <h3 style="color: var(--color-primary); margin-bottom: 1rem;">No tienes préstamos activos</h3>
+                    <p style="color: var(--color-secondary); margin-bottom: 2rem;">
+                        Explora nuestro catálogo y solicita un libro
+                    </p>
+                    <a href="<?php echo url('student/catalogo.php'); ?>" class="btn btn-accent">
+                        <i class="fas fa-books"></i> Ver Catálogo
+                    </a>
+                </div>
+            <?php else: ?>
+                <!-- Grid de Préstamos -->
+                <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 2rem;">
+                    <?php foreach ($activeLoans as $loan): 
+                        $daysLeft = (strtotime($loan['fecha_devolucion']) - time()) / (60 * 60 * 24);
+                        $isOverdue = $daysLeft < 0;
+                        $isUrgent = !$isOverdue && $daysLeft < 3;
+                        $statusClass = $isOverdue ? 'error' : ($isUrgent ? 'warning' : 'success');
+                    ?>
+                        <div class="card student-card" style="padding: 1.5rem;">
+                            <!-- Estado -->
+                            <div style="text-align: center; margin-bottom: 1rem;">
+                                <span class="message <?php echo $statusClass; ?>" style="display: inline-block; padding: 0.5rem 1rem; border-radius: 0.5rem; font-weight: 600;">
+                                    <?php if ($isOverdue): ?>
+                                        <i class="fas fa-exclamation-triangle"></i> ¡Préstamo Vencido!
+                                    <?php elseif ($isUrgent): ?>
+                                        <i class="fas fa-clock"></i> Vence Pronto
+                                    <?php else: ?>
+                                        <i class="fas fa-check-circle"></i> Al Día
+                                    <?php endif; ?>
+                                </span>
+                            </div>
+
+                            <!-- Información del Libro -->
+                            <div style="text-align: center; margin-bottom: 1.5rem;">
+                                <h3 style="color: var(--color-primary); margin: 0 0 0.5rem 0; font-size: 1.25rem;">
+                                    <?php echo e($loan['libro_titulo']); ?>
+                                </h3>
+                                <p style="color: var(--color-secondary); margin: 0;">
+                                    <i class="fas fa-user-edit"></i> <?php echo e($loan['libro_autor']); ?>
+                                </p>
+                            </div>
+
+                            <!-- Fechas -->
+                            <div style="background: #f8f9fa; padding: 1rem; border-radius: 0.5rem; margin-bottom: 1rem;">
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                    <span style="color: var(--color-secondary);">
+                                        <i class="fas fa-calendar-check"></i> Prestado:
+                                    </span>
+                                    <strong><?php echo date('d/m/Y', strtotime($loan['fecha_prestamo'])); ?></strong>
+                                </div>
+                                <div style="display: flex; justify-content: space-between;">
+                                    <span style="color: var(--color-secondary);">
+                                        <i class="fas fa-calendar-times"></i> Devolver antes:
+                                    </span>
+                                    <strong style="color: <?php echo $isOverdue ? '#dc3545' : ($isUrgent ? '#ffc107' : '#28a745'); ?>">
+                                        <?php echo date('d/m/Y', strtotime($loan['fecha_devolucion'])); ?>
+                                    </strong>
+                                </div>
+                            </div>
+
+                            <!-- Días Restantes -->
+                            <div style="text-align: center; padding: 1rem; background: <?php echo $isOverdue ? '#f8d7da' : ($isUrgent ? '#fff3cd' : '#d4edda'); ?>; border-radius: 0.5rem;">
+                                <?php if ($isOverdue): ?>
+                                    <p style="margin: 0; color: #721c24; font-weight: 600;">
+                                        <i class="fas fa-exclamation-circle"></i> 
+                                        Vencido hace <?php echo abs(round($daysLeft)); ?> día(s)
+                                    </p>
+                                    <small style="color: #721c24; display: block; margin-top: 0.5rem;">
+                                        Por favor, devuelve el libro lo antes posible
+                                    </small>
+                                <?php elseif ($isUrgent): ?>
+                                    <p style="margin: 0; color: #856404; font-weight: 600;">
+                                        <i class="fas fa-clock"></i> 
+                                        Te quedan <?php echo round($daysLeft); ?> día(s)
+                                    </p>
+                                    <small style="color: #856404; display: block; margin-top: 0.5rem;">
+                                        Recuerda devolver el libro a tiempo
+                                    </small>
+                                <?php else: ?>
+                                    <p style="margin: 0; color: #155724; font-weight: 600;">
+                                        <i class="fas fa-calendar-check"></i> 
+                                        Te quedan <?php echo round($daysLeft); ?> día(s)
+                                    </p>
+                                    <small style="color: #155724; display: block; margin-top: 0.5rem;">
+                                        Disfruta tu lectura
+                                    </small>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+
+                <!-- Información adicional -->
+                <div class="card" style="margin-top: 2rem; background: #e7f3ff; border-left: 4px solid #2196F3;">
+                    <h4 style="color: #1565C0; margin: 0 0 1rem 0;">
+                        <i class="fas fa-info-circle"></i> Información Importante
+                    </h4>
+                    <ul style="margin: 0; padding-left: 1.5rem; color: #424242;">
+                        <li style="margin-bottom: 0.5rem;">Los libros deben ser devueltos en las fechas indicadas</li>
+                        <li style="margin-bottom: 0.5rem;">Puedes tener máximo <?php echo MAX_ACTIVE_LOANS ?? 3; ?> préstamos activos</li>
+                        <li style="margin-bottom: 0.5rem;">Cuida los libros durante el período de préstamo</li>
+                        <li>Para devolver un libro, acércate al administrador</li>
+                    </ul>
+                </div>
+            <?php endif; ?>
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="<?php echo asset('js/sidebar.js'); ?>"></script>
+</body>
+</html>

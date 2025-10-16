@@ -1,0 +1,108 @@
+[06-Oct-2025 20:08:18 America/Bogota] PHP Fatal error:  Uncaught Error: Call to undefined function e() in C:\xampp\htdocs\Book-ary\admin\libros\index.php:70
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\Book-ary\admin\libros\index.php on line 70
+[06-Oct-2025 20:09:00 America/Bogota] PHP Fatal error:  Uncaught Error: Call to undefined function e() in C:\xampp\htdocs\Book-ary\admin\libros\index.php:70
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\Book-ary\admin\libros\index.php on line 70
+[06-Oct-2025 20:09:05 America/Bogota] PHP Fatal error:  Uncaught Error: Call to undefined function e() in C:\xampp\htdocs\Book-ary\admin\prestamos\index.php:84
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\Book-ary\admin\prestamos\index.php on line 84
+[07-Oct-2025 19:22:18 America/Bogota] PHP Fatal error:  Uncaught Error: Call to undefined function e() in C:\xampp\htdocs\Book-ary\admin\libros\index.php:70
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\Book-ary\admin\libros\index.php on line 70
+[07-Oct-2025 19:24:03 America/Bogota] PHP Fatal error:  Uncaught Error: Call to undefined function e() in C:\xampp\htdocs\Book-ary\admin\libros\index.php:70
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\Book-ary\admin\libros\index.php on line 70
+[07-Oct-2025 19:24:50 America/Bogota] PHP Fatal error:  Uncaught Error: Call to undefined function e() in C:\xampp\htdocs\Book-ary\admin\libros\index.php:70
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\Book-ary\admin\libros\index.php on line 70
+[07-Oct-2025 19:25:15 America/Bogota] PHP Fatal error:  Uncaught Error: Call to undefined function e() in C:\xampp\htdocs\Book-ary\admin\libros\index.php:70
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\Book-ary\admin\libros\index.php on line 70
+[07-Oct-2025 20:01:05 America/Bogota] PHP Fatal error:  Uncaught Error: Call to undefined function e() in C:\xampp\htdocs\Book-ary\admin\libros\index.php:70
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\Book-ary\admin\libros\index.php on line 70
+[07-Oct-2025 20:10:45 America/Bogota] PHP Fatal error:  Uncaught Error: Call to undefined function e() in C:\xampp\htdocs\Book-ary\admin\libros\index.php:70
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\Book-ary\admin\libros\index.php on line 70
+[07-Oct-2025 20:11:39 America/Bogota] PHP Fatal error:  Uncaught Error: Call to undefined function e() in C:\xampp\htdocs\Book-ary\admin\libros\index.php:70
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\Book-ary\admin\libros\index.php on line 70
+[07-Oct-2025 20:28:19 America/Bogota] PHP Fatal error:  Uncaught Error: Call to undefined function e() in C:\xampp\htdocs\Book-ary\admin\libros\index.php:70
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\Book-ary\admin\libros\index.php on line 70
+[07-Oct-2025 20:28:21 America/Bogota] PHP Fatal error:  Uncaught Error: Call to undefined function e() in C:\xampp\htdocs\Book-ary\admin\libros\index.php:70
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\Book-ary\admin\libros\index.php on line 70
+[07-Oct-2025 20:28:22 America/Bogota] PHP Fatal error:  Uncaught Error: Call to undefined function e() in C:\xampp\htdocs\Book-ary\admin\libros\index.php:70
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\Book-ary\admin\libros\index.php on line 70
+[07-Oct-2025 20:28:42 America/Bogota] PHP Fatal error:  Uncaught Error: Call to undefined function e() in C:\xampp\htdocs\Book-ary\admin\libros\index.php:70
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\Book-ary\admin\libros\index.php on line 70
+[07-Oct-2025 20:48:35 America/Bogota] PHP Fatal error:  Uncaught Error: Call to undefined function e() in C:\xampp\htdocs\Book-ary\admin\libros\index.php:73
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\Book-ary\admin\libros\index.php on line 73
+[07-Oct-2025 20:48:42 America/Bogota] PHP Fatal error:  Uncaught Error: Call to undefined function e() in C:\xampp\htdocs\Book-ary\admin\libros\index.php:73
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\Book-ary\admin\libros\index.php on line 73
+[07-Oct-2025 20:49:40 America/Bogota] PHP Fatal error:  Uncaught Error: Call to undefined function e() in C:\xampp\htdocs\Book-ary\admin\libros\index.php:73
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\Book-ary\admin\libros\index.php on line 73
+[07-Oct-2025 20:58:26 America/Bogota] PHP Fatal error:  Uncaught Error: Call to undefined function e() in C:\xampp\htdocs\Book-ary\admin\prestamos\index.php:84
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\Book-ary\admin\prestamos\index.php on line 84
+[07-Oct-2025 20:59:44 America/Bogota] PHP Fatal error:  Uncaught Error: Call to undefined function e() in C:\xampp\htdocs\Book-ary\admin\prestamos\index.php:84
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\Book-ary\admin\prestamos\index.php on line 84
+[07-Oct-2025 21:16:37 America/Bogota] PHP Fatal error:  Uncaught Error: Call to undefined function e() in C:\xampp\htdocs\Book-ary\student\mis-prestamos.php:73
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\Book-ary\student\mis-prestamos.php on line 73
+[07-Oct-2025 21:30:28 America/Bogota] PHP Fatal error:  Uncaught Error: Call to undefined function e() in C:\xampp\htdocs\Book-ary\student\catalogo.php:83
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\Book-ary\student\catalogo.php on line 83
+[07-Oct-2025 21:30:35 America/Bogota] PHP Fatal error:  Uncaught Error: Call to undefined function e() in C:\xampp\htdocs\Book-ary\student\mis-prestamos.php:73
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\Book-ary\student\mis-prestamos.php on line 73
+[07-Oct-2025 21:30:40 America/Bogota] PHP Fatal error:  Uncaught Error: Call to undefined function e() in C:\xampp\htdocs\Book-ary\student\historial.php:73
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\Book-ary\student\historial.php on line 73
+[16-Oct-2025 07:27:59 America/Bogota] PHP Fatal error:  Uncaught Error: Call to undefined function e() in C:\xampp\htdocs\Book-ary\student\catalogo.php:83
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\Book-ary\student\catalogo.php on line 83
+[16-Oct-2025 07:28:13 America/Bogota] PHP Fatal error:  Uncaught Error: Call to undefined function e() in C:\xampp\htdocs\Book-ary\student\historial.php:73
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\Book-ary\student\historial.php on line 73
+[16-Oct-2025 07:53:09 America/Bogota] PHP Fatal error:  Uncaught Error: Call to undefined function e() in C:\xampp\htdocs\Book-ary\student\mis-prestamos.php:73
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\Book-ary\student\mis-prestamos.php on line 73
+[16-Oct-2025 07:53:14 America/Bogota] PHP Fatal error:  Uncaught Error: Call to undefined function e() in C:\xampp\htdocs\Book-ary\student\catalogo.php:83
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\Book-ary\student\catalogo.php on line 83

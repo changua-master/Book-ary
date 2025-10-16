@@ -1,0 +1,25 @@
+# .htaccess en la RAÍZ del proyecto (Book-ary/)
+
+# 1. Prevenir listado de directorios
+Options -Indexes
+
+# 2. Habilitar el motor de reescritura
+RewriteEngine On
+
+# 🚨 LÍNEA CRUCIAL: Define la base de la URL para la reescritura
+# Si tu proyecto es accesible vía http://localhost/Book-ary/, esta es tu base.
+RewriteBase /Book-ary/
+
+# 3. EXCLUIR ARCHIVOS Y CARPETAS QUE REALMENTE EXISTEN
+# Si la petición es para un archivo real, no reescribir (permite cargar CSS/JS/Imágenes)
+RewriteCond %{REQUEST_FILENAME} !-f
+
+# Si la petición es para un directorio real, no reescribir
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# 4. REDIRIGIR TODO LO DEMÁS a public/index.php
+# Si la URL no apunta a un archivo o directorio real, se envía a nuestro Front Controller
+RewriteRule ^(.*)$ public/index.php [L]
+
+# 5. Definir el archivo de índice por defecto para cuando se accede a bookary/
+DirectoryIndex public/index.php
