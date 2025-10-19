@@ -21,7 +21,7 @@ $activeLoans = $loanModel->byUser($userId, 'activo');
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mis Préstamos - <?php echo APP_NAME; ?></title>
-    <link rel="stylesheet" href="..\public\assets\css\bookary.css">
+    <link rel="stylesheet" href="../public/assets/css/bookary.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body class="student-layout">
@@ -51,6 +51,11 @@ $activeLoans = $loanModel->byUser($userId, 'activo');
                 </a>
             </li>
             <li class="sidebar-item">
+                <a href="<?php echo url('student/solicitudes.php'); ?>" class="sidebar-link">
+                    <i class="fas fa-paper-plane"></i> Mis Solicitudes
+                </a>
+            </li>
+            <li class="sidebar-item">
                 <a href="<?php echo url('student/historial.php'); ?>" class="sidebar-link">
                     <i class="fas fa-history"></i> Historial
                 </a>
@@ -70,7 +75,7 @@ $activeLoans = $loanModel->byUser($userId, 'activo');
                 <ul class="navbar-nav">
                     <li>
                         <span style="color: var(--color-white); margin-right: 1rem;">
-                            <i class="fas fa-user-circle"></i> <?php echo e($username); ?>
+                            <i class="fas fa-user-circle"></i> <?php echo htmlspecialchars($username); ?>
                         </span>
                     </li>
                     <li>
@@ -135,10 +140,10 @@ $activeLoans = $loanModel->byUser($userId, 'activo');
                             <!-- Información del Libro -->
                             <div style="text-align: center; margin-bottom: 1.5rem;">
                                 <h3 style="color: var(--color-primary); margin: 0 0 0.5rem 0; font-size: 1.25rem;">
-                                    <?php echo e($loan['libro_titulo']); ?>
+                                    <?php echo htmlspecialchars($loan['libro_titulo']); ?>
                                 </h3>
                                 <p style="color: var(--color-secondary); margin: 0;">
-                                    <i class="fas fa-user-edit"></i> <?php echo e($loan['libro_autor']); ?>
+                                    <i class="fas fa-user-edit"></i> <?php echo htmlspecialchars($loan['libro_autor']); ?>
                                 </p>
                             </div>
 
@@ -209,6 +214,6 @@ $activeLoans = $loanModel->byUser($userId, 'activo');
     </main>
 
     <!-- Scripts -->
-    <script src="<?php echo asset('js/sidebar.js'); ?>"></script>
+    <script src="../public/assets/js/sidebar.js"></script>
 </body>
 </html>

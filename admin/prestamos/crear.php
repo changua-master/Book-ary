@@ -3,6 +3,12 @@ require_once __DIR__ . '/../../config/app.php';
 require_once __DIR__ . '/../../config/database.php';
 require_once __DIR__ . '/../../app/Middleware/AuthMiddleware.php';
 
+// Función helper para escapar HTML (si no existe)
+if (!function_exists('e')) {
+    function e($string) {
+        return htmlspecialchars($string ?? '', ENT_QUOTES, 'UTF-8');
+    }
+}
 // Verificar autenticación
 AuthMiddleware::requireAdmin('../../public/login.php');
 
@@ -21,7 +27,7 @@ $username = AuthMiddleware::username();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nuevo Préstamo - <?php echo APP_NAME; ?></title>
-    <link rel="stylesheet" href="..\public\assets\css\bookary.css">
+    <link rel="stylesheet" href="../../public/assets/css/bookary.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body class="admin-layout">
@@ -152,6 +158,7 @@ $username = AuthMiddleware::username();
     </main>
 
     <!-- Scripts -->
-    <script src="<?php echo asset('js/sidebar.js'); ?>"></script>
+    <script src="../public/assets/js/sidebar.js"></script>
+    <script src="../public/assets/js/bookary.js"></script>
 </body>
 </html>

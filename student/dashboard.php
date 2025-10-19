@@ -3,6 +3,7 @@ require_once __DIR__ . '/../config/app.php';
 require_once __DIR__ . '/../config/database.php';
 require_once __DIR__ . '/../app/Middleware/AuthMiddleware.php';
 require_once __DIR__ . '/../app/Models/Loan.php';
+require_once __DIR__ . '/../app/Models/LoanRequest.php';
 
 // Verificar autenticación y rol de estudiante
 AuthMiddleware::requireStudent('../public/login.php');
@@ -11,12 +12,16 @@ AuthMiddleware::requireStudent('../public/login.php');
 $userId = AuthMiddleware::id();
 $username = AuthMiddleware::username();
 
-// Obtener préstamos del usuario
+// Obtener préstamos y solicitudes del usuario
 $loanModel = new Loan($conexion);
+$requestModel = new LoanRequest($conexion);
+
 $activeLoans = $loanModel->byUser($userId, 'activo');
-$loanHistory = $loanModel->history($userId, 5); // Últimos 5 préstamos
+$loanHistory = $loanModel->history($userId, 5);
+$pendingRequests = $requestModel->byUser($userId, 'pendiente');
 
 $activeLoanCount = count($activeLoans);
+$pendingRequestCount = count($pendingRequests);
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -24,7 +29,7 @@ $activeLoanCount = count($activeLoans);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mi Biblioteca - <?php echo APP_NAME; ?></title>
-    <link rel="stylesheet" href="..\public\assets\css\bookary.css">
+    <link rel="stylesheet" href="../public/assets/css/bookary.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body class="student-layout">
@@ -51,6 +56,16 @@ $activeLoanCount = count($activeLoans);
             <li class="sidebar-item">
                 <a href="<?php echo url('student/mis-prestamos.php'); ?>" class="sidebar-link">
                     <i class="fas fa-book-reader"></i> Mis Préstamos
+                </a>
+            </li>
+            <li class="sidebar-item">
+                <a href="<?php echo url('student/solicitudes.php'); ?>" class="sidebar-link">
+                    <i class="fas fa-paper-plane"></i> Mis Solicitudes
+                    <?php if ($pendingRequestCount > 0): ?>
+                        <span style="background: #ffc107; color: #856404; border-radius: 50%; padding: 0.2rem 0.5rem; font-size: 0.75rem; margin-left: 0.5rem;">
+                            <?php echo $pendingRequestCount; ?>
+                        </span>
+                    <?php endif; ?>
                 </a>
             </li>
             <li class="sidebar-item">
@@ -96,6 +111,15 @@ $activeLoanCount = count($activeLoans);
                 <p class="welcome-subtitle">Bienvenido a tu biblioteca personal</p>
             </div>
 
+            <!-- Alertas -->
+            <?php if ($pendingRequestCount > 0): ?>
+            <div class="message warning" style="margin-bottom: 2rem;">
+                <i class="fas fa-clock"></i>
+                Tienes <?php echo $pendingRequestCount; ?> solicitud(es) pendiente(s) de aprobación.
+                <a href="<?php echo url('student/solicitudes.php'); ?>" style="color: inherit; text-decoration: underline; font-weight: 600;">Ver solicitudes</a>
+            </div>
+            <?php endif; ?>
+
             <!-- Resumen de Préstamos -->
             <div class="dashboard-grid" style="margin-bottom: 3rem;">
                 <div class="card student-card animate-scale-in">
@@ -104,6 +128,14 @@ $activeLoanCount = count($activeLoans);
                     </div>
                     <h3 style="font-size: 2.5rem; margin: 0.5rem 0;"><?php echo $activeLoanCount; ?></h3>
                     <p style="color: var(--color-secondary); font-weight: 600;">Préstamos Activos</p>
+                </div>
+
+                <div class="card student-card animate-scale-in" style="<?php echo $pendingRequestCount > 0 ? 'border-left: 4px solid #ffc107;' : ''; ?>">
+                    <div class="card-icon">
+                        <i class="fas fa-paper-plane"></i>
+                    </div>
+                    <h3 style="font-size: 2.5rem; margin: 0.5rem 0;"><?php echo $pendingRequestCount; ?></h3>
+                    <p style="color: var(--color-secondary); font-weight: 600;">Solicitudes Pendientes</p>
                 </div>
 
                 <div class="card student-card animate-scale-in">
@@ -116,7 +148,7 @@ $activeLoanCount = count($activeLoans);
 
                 <div class="card student-card animate-scale-in">
                     <div class="card-icon">
-                        <i class="fas fa-clock"></i>
+                        <i class="fas fa-check-circle"></i>
                     </div>
                     <h3 style="font-size: 2.5rem; margin: 0.5rem 0;">
                         <?php echo (MAX_ACTIVE_LOANS - $activeLoanCount); ?>
@@ -164,12 +196,6 @@ $activeLoanCount = count($activeLoans);
                 </div>
                 <?php endforeach; ?>
             </div>
-            <?php else: ?>
-            <div class="message" style="background: #f8f9fa; margin-bottom: 3rem;">
-                <i class="fas fa-info-circle"></i>
-                No tienes préstamos activos en este momento. 
-                <a href="<?php echo url('student/catalogo.php'); ?>" style="color: var(--color-accent); font-weight: 600;">Explora el catálogo</a>
-            </div>
             <?php endif; ?>
 
             <!-- Acciones Rápidas -->
@@ -183,6 +209,19 @@ $activeLoanCount = count($activeLoans);
                     </div>
                     <h3>Explorar Catálogo</h3>
                     <p>Descubre nuevos libros para leer</p>
+                </a>
+
+                <a href="<?php echo url('student/solicitudes.php'); ?>" class="dashboard-card student-card" style="<?php echo $pendingRequestCount > 0 ? 'border: 2px solid #ffc107;' : ''; ?>">
+                    <div class="card-icon">
+                        <i class="fas fa-paper-plane"></i>
+                    </div>
+                    <h3>Mis Solicitudes <?php echo $pendingRequestCount > 0 ? "($pendingRequestCount)" : ''; ?></h3>
+                    <p>Revisa el estado de tus solicitudes</p>
+                    <?php if ($pendingRequestCount > 0): ?>
+                        <span style="display: inline-block; margin-top: 0.5rem; padding: 0.25rem 0.75rem; background: #ffc107; color: #856404; border-radius: 0.5rem; font-size: 0.9rem; font-weight: 600;">
+                            En revisión
+                        </span>
+                    <?php endif; ?>
                 </a>
 
                 <a href="<?php echo url('student/mis-prestamos.php'); ?>" class="dashboard-card student-card">
