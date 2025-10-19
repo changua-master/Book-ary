@@ -4,6 +4,13 @@ require_once __DIR__ . '/../config/database.php';
 require_once __DIR__ . '/../app/Middleware/AuthMiddleware.php';
 require_once __DIR__ . '/../app/Models/Loan.php';
 
+// Función helper
+if (!function_exists('e')) {
+    function e($string) {
+        return htmlspecialchars($string ?? '', ENT_QUOTES, 'UTF-8');
+    }
+}
+
 // Verificar autenticación
 AuthMiddleware::requireStudent('../public/login.php');
 
@@ -21,7 +28,7 @@ $loanHistory = $loanModel->history($userId);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mi Historial - <?php echo APP_NAME; ?></title>
-    <link rel="stylesheet" href="..\public\assets\css\bookary.css">
+    <link rel="stylesheet" href="<?php echo url('public/assets/css/bookary.css'); ?>">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body class="student-layout">
@@ -48,6 +55,11 @@ $loanHistory = $loanModel->history($userId);
             <li class="sidebar-item">
                 <a href="<?php echo url('student/mis-prestamos.php'); ?>" class="sidebar-link">
                     <i class="fas fa-book-reader"></i> Mis Préstamos
+                </a>
+            </li>
+            <li class="sidebar-item">
+                <a href="<?php echo url('student/solicitudes.php'); ?>" class="sidebar-link">
+                    <i class="fas fa-paper-plane"></i> Mis Solicitudes
                 </a>
             </li>
             <li class="sidebar-item">
@@ -199,6 +211,6 @@ $loanHistory = $loanModel->history($userId);
     </main>
 
     <!-- Scripts -->
-    <script src="<?php echo asset('js/sidebar.js'); ?>"></script>
+    <script src="<?php echo url('public/assets/js/sidebar.js'); ?>"></script>
 </body>
 </html>

@@ -7,10 +7,8 @@ require_once __DIR__ . '/../app/Models/User.php';
 require_once __DIR__ . '/../app/Models/Loan.php';
 require_once __DIR__ . '/../app/Models/LoanRequest.php';
 
-// Verificar autenticación y rol de administrador
 AuthMiddleware::requireAdmin('../public/login.php');
 
-// Obtener estadísticas
 $bookModel = new Book($conexion);
 $userModel = new User($conexion);
 $loanModel = new Loan($conexion);
@@ -24,6 +22,7 @@ $overdueLoans = $loanModel->countOverdue();
 $pendingRequests = $requestModel->countPending();
 
 $username = AuthMiddleware::username();
+$userInitial = strtoupper(substr($username, 0, 1));
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -32,6 +31,9 @@ $username = AuthMiddleware::username();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard Administrador - <?php echo APP_NAME; ?></title>
     <link rel="stylesheet" href="../public/assets/css/bookary.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body class="admin-layout">
@@ -39,11 +41,12 @@ $username = AuthMiddleware::username();
     <!-- Sidebar -->
     <div class="sidebar" id="sidebar">
         <div class="sidebar-header">
-            <h3>Panel Administrativo</h3>
+            <h3>Panel Admin</h3>
             <button class="sidebar-close" id="closeSidebar">
                 <i class="fas fa-times"></i>
             </button>
         </div>
+        
         <ul class="sidebar-menu">
             <li class="sidebar-item">
                 <a href="<?php echo url('admin/dashboard.php'); ?>" class="sidebar-link active">
@@ -81,30 +84,41 @@ $username = AuthMiddleware::username();
                 </a>
             </li>
         </ul>
+        
+        <!-- Perfil y Logout en Sidebar -->
+        <div class="sidebar-user">
+            <div class="sidebar-user-info">
+                <div class="sidebar-user-avatar">
+                    <?php echo $userInitial; ?>
+                </div>
+                <div class="sidebar-user-details">
+                    <h4><?php echo htmlspecialchars($username); ?></h4>
+                    <p>Administrador</p>
+                </div>
+            </div>
+            <a href="<?php echo url('public/logout.php'); ?>" class="sidebar-logout">
+                <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
+            </a>
+        </div>
     </div>
     <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
-    <!-- Navbar -->
-    <nav class="navbar">
-        <div class="container">
-            <div class="navbar-content">
-                <button class="toggle-sidebar" id="toggleSidebar">
-                    <i class="fas fa-bars"></i>
-                </button>
-                <a href="<?php echo url('admin/dashboard.php'); ?>" class="navbar-brand">Book<span>ary</span></a>
-                <ul class="navbar-nav">
-                    <li>
-                        <span style="color: var(--color-white); margin-right: 1rem;">
-                            <i class="fas fa-user-circle"></i> <?php echo htmlspecialchars($username); ?>
-                        </span>
-                    </li>
-                    <li>
-                        <a href="<?php echo url('public/logout.php'); ?>" class="btn btn-secondary btn-sm">
-                            <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
-                        </a>
-                    </li>
-                </ul>
-            </div>
+    <!-- Navbar con decoraciones -->
+    <nav class="navbar" style="position: relative;">
+        <div class="navbar-content">
+            <button class="toggle-sidebar" id="toggleSidebar">
+                <i class="fas fa-bars"></i>
+            </button>
+            <a href="<?php echo url('admin/dashboard.php'); ?>" class="navbar-brand">Book<span>ary</span></a>
+        </div>
+        
+        <!-- Iconos decorativos dispersos con levitación -->
+        <div class="navbar-decorations">
+            <i class="fas fa-book navbar-icon" title="Biblioteca"></i>
+            <i class="fas fa-star navbar-icon" title="Destacado"></i>
+            <i class="fas fa-heart navbar-icon" title="Favoritos"></i>
+            <i class="fas fa-bookmark navbar-icon" title="Marcadores"></i>
+            <i class="fas fa-crown navbar-icon" title="Premium"></i>
         </div>
     </nav>
 

@@ -4,6 +4,13 @@ require_once __DIR__ . '/../config/database.php';
 require_once __DIR__ . '/../app/Middleware/AuthMiddleware.php';
 require_once __DIR__ . '/../app/Models/Loan.php';
 
+// Función helper
+if (!function_exists('e')) {
+    function e($string) {
+        return htmlspecialchars($string ?? '', ENT_QUOTES, 'UTF-8');
+    }
+}
+
 // Verificar autenticación
 AuthMiddleware::requireStudent('../public/login.php');
 
@@ -21,7 +28,7 @@ $activeLoans = $loanModel->byUser($userId, 'activo');
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mis Préstamos - <?php echo APP_NAME; ?></title>
-    <link rel="stylesheet" href="../public/assets/css/bookary.css">
+    <link rel="stylesheet" href="<?php echo url('public/assets/css/bookary.css'); ?>">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body class="student-layout">
@@ -75,7 +82,7 @@ $activeLoans = $loanModel->byUser($userId, 'activo');
                 <ul class="navbar-nav">
                     <li>
                         <span style="color: var(--color-white); margin-right: 1rem;">
-                            <i class="fas fa-user-circle"></i> <?php echo htmlspecialchars($username); ?>
+                            <i class="fas fa-user-circle"></i> <?php echo e($username); ?>
                         </span>
                     </li>
                     <li>
@@ -110,7 +117,7 @@ $activeLoans = $loanModel->byUser($userId, 'activo');
                     <p style="color: var(--color-secondary); margin-bottom: 2rem;">
                         Explora nuestro catálogo y solicita un libro
                     </p>
-                    <a href="<?php echo url('student/catalogo.php'); ?>" class="btn btn-accent">
+                    <a href="<?php echo url('student/catalogo.php'); ?>" class="btn btn-accent" style="display: inline-flex; align-items: center; gap: 0.5rem;">
                         <i class="fas fa-books"></i> Ver Catálogo
                     </a>
                 </div>
@@ -140,10 +147,10 @@ $activeLoans = $loanModel->byUser($userId, 'activo');
                             <!-- Información del Libro -->
                             <div style="text-align: center; margin-bottom: 1.5rem;">
                                 <h3 style="color: var(--color-primary); margin: 0 0 0.5rem 0; font-size: 1.25rem;">
-                                    <?php echo htmlspecialchars($loan['libro_titulo']); ?>
+                                    <?php echo e($loan['libro_titulo']); ?>
                                 </h3>
                                 <p style="color: var(--color-secondary); margin: 0;">
-                                    <i class="fas fa-user-edit"></i> <?php echo htmlspecialchars($loan['libro_autor']); ?>
+                                    <i class="fas fa-user-edit"></i> <?php echo e($loan['libro_autor']); ?>
                                 </p>
                             </div>
 
@@ -214,6 +221,24 @@ $activeLoans = $loanModel->byUser($userId, 'activo');
     </main>
 
     <!-- Scripts -->
-    <script src="../public/assets/js/sidebar.js"></script>
+    <script src="<?php echo url('public/assets/js/sidebar.js'); ?>"></script>
+    <script>
+        // Debug: Verificar carga
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Página de préstamos cargada');
+            
+            // Verificar que los enlaces funcionan
+            const catalogLink = document.querySelector('a[href*="catalogo.php"]');
+            if (catalogLink) {
+                console.log('Link al catálogo encontrado:', catalogLink.href);
+                
+                // Agregar listener para debug
+                catalogLink.addEventListener('click', function(e) {
+                    console.log('Click en link de catálogo detectado');
+                    console.log('Navegando a:', this.href);
+                });
+            }
+        });
+    </script>
 </body>
 </html>

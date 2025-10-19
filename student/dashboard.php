@@ -5,14 +5,12 @@ require_once __DIR__ . '/../app/Middleware/AuthMiddleware.php';
 require_once __DIR__ . '/../app/Models/Loan.php';
 require_once __DIR__ . '/../app/Models/LoanRequest.php';
 
-// Verificar autenticación y rol de estudiante
 AuthMiddleware::requireStudent('../public/login.php');
 
-// Obtener información del usuario
 $userId = AuthMiddleware::id();
 $username = AuthMiddleware::username();
+$userInitial = strtoupper(substr($username, 0, 1));
 
-// Obtener préstamos y solicitudes del usuario
 $loanModel = new Loan($conexion);
 $requestModel = new LoanRequest($conexion);
 
@@ -30,6 +28,9 @@ $pendingRequestCount = count($pendingRequests);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mi Biblioteca - <?php echo APP_NAME; ?></title>
     <link rel="stylesheet" href="../public/assets/css/bookary.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body class="student-layout">
@@ -42,6 +43,7 @@ $pendingRequestCount = count($pendingRequests);
                 <i class="fas fa-times"></i>
             </button>
         </div>
+        
         <ul class="sidebar-menu">
             <li class="sidebar-item">
                 <a href="<?php echo url('student/dashboard.php'); ?>" class="sidebar-link active">
@@ -74,30 +76,41 @@ $pendingRequestCount = count($pendingRequests);
                 </a>
             </li>
         </ul>
+        
+        <!-- Perfil y Logout en Sidebar -->
+        <div class="sidebar-user">
+            <div class="sidebar-user-info">
+                <div class="sidebar-user-avatar" style="background: var(--color-secondary);">
+                    <?php echo $userInitial; ?>
+                </div>
+                <div class="sidebar-user-details">
+                    <h4><?php echo htmlspecialchars($username); ?></h4>
+                    <p>Estudiante</p>
+                </div>
+            </div>
+            <a href="<?php echo url('public/logout.php'); ?>" class="sidebar-logout" style="background: var(--color-secondary);">
+                <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
+            </a>
+        </div>
     </div>
     <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
-    <!-- Navbar -->
-    <nav class="navbar student-navbar">
-        <div class="container">
-            <div class="navbar-content">
-                <button class="toggle-sidebar" id="toggleSidebar">
-                    <i class="fas fa-bars"></i>
-                </button>
-                <a href="<?php echo url('student/dashboard.php'); ?>" class="navbar-brand">Book<span>ary</span></a>
-                <ul class="navbar-nav">
-                    <li>
-                        <span style="color: var(--color-white); margin-right: 1rem;">
-                            <i class="fas fa-user-circle"></i> <?php echo htmlspecialchars($username); ?>
-                        </span>
-                    </li>
-                    <li>
-                        <a href="<?php echo url('public/logout.php'); ?>" class="btn btn-secondary btn-sm">
-                            <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
-                        </a>
-                    </li>
-                </ul>
-            </div>
+    <!-- Navbar con decoraciones -->
+    <nav class="navbar student-navbar" style="position: relative;">
+        <div class="navbar-content">
+            <button class="toggle-sidebar" id="toggleSidebar">
+                <i class="fas fa-bars"></i>
+            </button>
+            <a href="<?php echo url('student/dashboard.php'); ?>" class="navbar-brand">Book<span>ary</span></a>
+        </div>
+        
+        <!-- Iconos decorativos dispersos con levitación -->
+        <div class="navbar-decorations">
+            <i class="fas fa-feather-alt navbar-icon" title="Escritura"></i>
+            <i class="fas fa-glasses navbar-icon" title="Lectura"></i>
+            <i class="fas fa-lightbulb navbar-icon" title="Ideas"></i>
+            <i class="fas fa-magic navbar-icon" title="Inspiración"></i>
+            <i class="fas fa-leaf navbar-icon" title="Conocimiento"></i>
         </div>
     </nav>
 
@@ -169,7 +182,7 @@ $pendingRequestCount = count($pendingRequests);
                     $statusClass = $isOverdue ? 'error' : ($daysLeft < 3 ? 'warning' : 'success');
                 ?>
                 <div class="dashboard-item">
-                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
                         <div>
                             <h4 style="margin: 0 0 0.5rem 0; color: var(--color-primary);">
                                 <i class="fas fa-book"></i> <?php echo htmlspecialchars($loan['libro_titulo']); ?>
@@ -179,7 +192,7 @@ $pendingRequestCount = count($pendingRequests);
                             </p>
                         </div>
                         <div style="text-align: right;">
-                            <p style="margin: 0 0 0.5rem 0;">
+                            <p style="margin: 0 0 0.5rem 0; font-size: 0.9rem;">
                                 <strong>Devolver antes de:</strong> <?php echo date('d/m/Y', strtotime($loan['fecha_devolucion'])); ?>
                             </p>
                             <span class="message <?php echo $statusClass; ?>" style="display: inline-block; padding: 0.25rem 0.75rem; border-radius: 0.5rem; font-size: 0.9rem;">
