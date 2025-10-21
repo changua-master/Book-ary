@@ -258,12 +258,12 @@ $pendingRequestCount = count($pendingRequests);
                     <p>Revisa tu actividad en la biblioteca</p>
                 </a>
 
-                <a href="<?php echo url('student/eventos.php'); ?>" class="dashboard-card student-card" style="background: linear-gradient(135deg, #8FB339 0%, #6B8E4E 100%); color: white;">
-                    <div class="card-icon" style="color: white;">
-                        <i class="fas fa-calendar-star"></i>
+                <a href="<?php echo url('student/eventos.php'); ?>" class="dashboard-card student-card" >
+                    <div class="card-icon">
+                        <i class="fas fa-calendar-alt"></i>
                     </div>
-                    <h3 style="color: white;">Eventos</h3>
-                    <p style="color: rgba(255,255,255,0.9);">Participa en nuestras actividades</p>
+                    <h3>Eventos</h3>
+                    <p >Participa en nuestras actividades</p>
                 </a>
             </div>
         </div>

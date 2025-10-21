@@ -486,11 +486,16 @@
 	  =================================== */
    
    .hero {
-	   background: var(--color-light);
-	   padding: 5rem 0 4rem;
+	   background: linear-gradient(135deg, rgba(94,48,35,0.95) 0%, rgba(182,69,48,0.9) 100%), 
+				   url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%23D9C5B2" width="1200" height="600"/><g fill-opacity="0.1"><polygon fill="%235E3023" points="1200 0 900 600 600 0"/><polygon fill="%236B8E4E" points="600 0 300 600 0 0"/></g></svg>');
+	   background-size: cover;
+	   background-position: center;
+	   background-attachment: fixed;
+	   padding: 8rem 0 6rem;
 	   text-align: center;
 	   position: relative;
 	   overflow: hidden;
+	   color: white;
    }
    
    .hero::before {
@@ -500,31 +505,128 @@
 	   left: -50%;
 	   width: 200%;
 	   height: 200%;
-	   background: radial-gradient(circle, rgba(182,69,48,0.1) 0%, rgba(217,197,178,0) 70%);
-	   animation: spin 20s linear infinite;
+	   background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+	   animation: rotate 30s linear infinite;
+   }
+   
+   .hero::after {
+	   content: '';
+	   position: absolute;
+	   bottom: 0;
+	   left: 0;
+	   width: 100%;
+	   height: 100px;
+	   background: linear-gradient(to bottom, transparent, var(--color-light));
+   }
+   
+   @keyframes rotate {
+	   from { transform: rotate(0deg); }
+	   to { transform: rotate(360deg); }
    }
    
    .hero-title {
 	   font-family: 'Playfair Display', serif;
-	   font-size: 3rem;
-	   color: var(--color-primary);
+	   font-size: 4rem;
+	   color: white;
 	   margin-bottom: 1.5rem;
 	   position: relative;
+	   text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
+	   animation: fadeInDown 1s var(--transition);
+   }
+   
+   @keyframes fadeInDown {
+	   from {
+		   opacity: 0;
+		   transform: translateY(-30px);
+	   }
+	   to {
+		   opacity: 1;
+		   transform: translateY(0);
+	   }
    }
    
    .hero-subtitle {
-	   font-size: 1.3rem;
-	   color: var(--color-secondary);
+	   font-size: 1.5rem;
+	   color: rgba(255,255,255,0.95);
 	   margin-bottom: 2rem;
 	   position: relative;
+	   text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+	   animation: fadeInUp 1s var(--transition) 0.3s both;
+   }
+   
+   @keyframes fadeInUp {
+	   from {
+		   opacity: 0;
+		   transform: translateY(30px);
+	   }
+	   to {
+		   opacity: 1;
+		   transform: translateY(0);
+	   }
    }
    
    .hero-actions {
-	   margin-top: 2.5rem;
+	   margin-top: 3rem;
 	   display: flex;
 	   justify-content: center;
 	   gap: 2rem;
 	   position: relative;
+	   animation: fadeInUp 1s var(--transition) 0.6s both;
+   }
+   
+   .hero-actions .btn {
+	   font-size: 1.2rem;
+	   padding: 1.2rem 3rem;
+	   box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+   }
+   
+   .hero-actions .btn-accent {
+	   background: var(--color-accent);
+	   animation: pulse 2s ease-in-out infinite;
+   }
+   
+   .hero-actions .btn-secondary {
+	   background: rgba(255,255,255,0.2);
+	   color: white;
+	   border: 2px solid white;
+	   backdrop-filter: blur(10px);
+   }
+   
+   .hero-actions .btn-secondary:hover {
+	   background: white;
+	   color: var(--color-primary);
+   }
+   
+   /* Decoración flotante en hero */
+   .hero-decoration {
+	   position: absolute;
+	   font-size: 3rem;
+	   opacity: 0.15;
+	   animation: float 6s ease-in-out infinite;
+   }
+   
+   .hero-decoration:nth-child(1) {
+	   top: 10%;
+	   left: 10%;
+	   animation-delay: 0s;
+   }
+   
+   .hero-decoration:nth-child(2) {
+	   top: 20%;
+	   right: 15%;
+	   animation-delay: 1s;
+   }
+   
+   .hero-decoration:nth-child(3) {
+	   bottom: 20%;
+	   left: 20%;
+	   animation-delay: 2s;
+   }
+   
+   .hero-decoration:nth-child(4) {
+	   bottom: 30%;
+	   right: 10%;
+	   animation-delay: 3s;
    }
    
    /* ===================================
@@ -673,7 +775,7 @@
    }
    
    /* ===================================
-	  FORMULARIOS
+	  FORMULARIOS - MEJORADOS
 	  =================================== */
    
    .auth-page {
@@ -681,8 +783,12 @@
 	   display: flex;
 	   align-items: center;
 	   justify-content: center;
-	   background: var(--color-light);
+	   background: linear-gradient(135deg, rgba(94,48,35,0.9) 0%, rgba(182,69,48,0.85) 100%),
+				   url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><rect fill="%23D9C5B2" width="1200" height="800"/><g fill-opacity="0.1"><circle fill="%235E3023" cx="200" cy="200" r="150"/><circle fill="%236B8E4E" cx="1000" cy="600" r="200"/><circle fill="%23B64530" cx="600" cy="400" r="180"/></g></svg>');
+	   background-size: cover;
+	   background-attachment: fixed;
 	   position: relative;
+	   padding: 2rem;
    }
    
    .auth-page::before {
@@ -692,32 +798,73 @@
 	   left: 0;
 	   width: 100%;
 	   height: 100%;
-	   background: linear-gradient(45deg, rgba(94,48,35,0.05) 0%, rgba(182,69,48,0.05) 100%);
+	   background: radial-gradient(circle at 30% 50%, rgba(182,69,48,0.3) 0%, transparent 50%),
+				   radial-gradient(circle at 70% 80%, rgba(107,142,78,0.3) 0%, transparent 50%);
+	   animation: gradientMove 20s ease infinite;
    }
    
    .auth-container {
-	   background: var(--color-white);
-	   border-radius: 1.5rem;
-	   box-shadow: var(--shadow-lg);
-	   padding: 2.5rem 2rem;
-	   max-width: 400px;
+	   background: rgba(255,255,255,0.95);
+	   backdrop-filter: blur(20px);
+	   border-radius: 2rem;
+	   box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+	   padding: 3rem 2.5rem;
+	   max-width: 450px;
 	   width: 100%;
 	   position: relative;
-	   animation: scaleIn 0.6s var(--transition);
+	   animation: containerAppear 0.8s var(--transition);
+	   border: 1px solid rgba(255,255,255,0.2);
+   }
+   
+   .auth-container::before {
+	   content: '';
+	   position: absolute;
+	   top: -2px;
+	   left: -2px;
+	   right: -2px;
+	   bottom: -2px;
+	   background: linear-gradient(135deg, var(--color-accent), var(--color-secondary));
+	   border-radius: 2rem;
+	   z-index: -1;
+	   opacity: 0.5;
+	   filter: blur(10px);
+   }
+   
+   @keyframes containerAppear {
+	   from {
+		   opacity: 0;
+		   transform: translateY(30px) scale(0.95);
+	   }
+	   to {
+		   opacity: 1;
+		   transform: translateY(0) scale(1);
+	   }
    }
    
    .form-header {
 	   text-align: center;
-	   margin-bottom: 2rem;
+	   margin-bottom: 2.5rem;
+   }
+   
+   .form-header .navbar-brand {
+	   color: var(--color-primary);
+	   font-size: 3rem;
+	   margin-bottom: 1.5rem;
+	   display: inline-block;
+	   text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+   }
+   
+   .form-header .navbar-brand span {
+	   color: var(--color-accent);
    }
    
    .auth-title {
 	   font-family: 'Playfair Display', serif;
 	   color: var(--color-primary);
-	   font-size: 2.2rem;
-	   margin-bottom: 0.5rem;
+	   font-size: 2.5rem;
+	   margin-bottom: 1rem;
 	   position: relative;
-	   padding-bottom: 1rem;
+	   padding-bottom: 1.5rem;
    }
    
    .auth-title::after {
@@ -725,79 +872,85 @@
 	   position: absolute;
 	   bottom: 0;
 	   left: 50%;
-	   width: 60px;
-	   height: 3px;
-	   background: var(--color-accent);
+	   width: 80px;
+	   height: 4px;
+	   background: linear-gradient(90deg, transparent, var(--color-accent), transparent);
 	   transform: translateX(-50%);
 	   border-radius: 2px;
    }
    
-   .form-group {
-	   margin-bottom: 1.5rem;
-   }
-   
-   .form-label {
-	   display: block;
-	   font-weight: 600;
-	   color: var(--color-primary);
-	   margin-bottom: 0.5rem;
+   .form-subtitle {
+	   color: var(--color-secondary);
+	   font-size: 1.1rem;
+	   margin-bottom: 1rem;
    }
    
    .form-input {
 	   width: 100%;
-	   padding: 1rem 1.2rem;
-	   border-radius: 0.7rem;
-	   border: 2px solid rgba(94,48,35,0.15);
+	   padding: 1.2rem 1.5rem;
+	   border-radius: 1rem;
+	   border: 2px solid rgba(94,48,35,0.2);
 	   font-size: 1rem;
-	   background: var(--color-white);
+	   background: white;
 	   color: var(--color-neutral);
 	   transition: all var(--transition);
+	   box-shadow: 0 2px 8px rgba(0,0,0,0.05);
    }
    
    .form-input:focus {
 	   border-color: var(--color-accent);
 	   outline: none;
-	   box-shadow: 0 0 0 4px rgba(182,69,48,0.1);
+	   box-shadow: 0 0 0 6px rgba(182,69,48,0.15), 0 4px 12px rgba(0,0,0,0.1);
 	   transform: translateY(-2px);
    }
    
-   .form-input:invalid {
-	   border-color: #dc3545;
-	   animation: shake 0.5s var(--transition);
+   .form-input::placeholder {
+	   color: rgba(94,48,35,0.4);
+   }
+   
+   .form-help {
+	   color: var(--color-secondary);
+	   font-size: 0.85rem;
+	   margin-top: 0.5rem;
+	   display: block;
    }
    
    .auth-links {
 	   text-align: center;
-	   margin-top: 1.5rem;
-	   padding-top: 1.5rem;
-	   border-top: 1px solid rgba(94,48,35,0.1);
+	   margin-top: 2rem;
+	   padding-top: 2rem;
+	   border-top: 2px solid rgba(94,48,35,0.1);
    }
    
    .auth-links a {
-	   color: var(--color-secondary);
+	   color: var(--color-accent);
 	   text-decoration: none;
+	   font-weight: 600;
 	   transition: all var(--transition-smooth);
 	   position: relative;
-   }
-   
-   .auth-links a:hover {
-	   color: var(--color-accent);
+	   padding: 0.5rem 0;
    }
    
    .auth-links a::after {
 	   content: '';
 	   position: absolute;
-	   bottom: -2px;
+	   bottom: 0;
 	   left: 0;
 	   width: 100%;
-	   height: 1px;
-	   background: currentColor;
+	   height: 2px;
+	   background: var(--color-accent);
 	   transform: scaleX(0);
+	   transform-origin: right;
 	   transition: transform var(--transition);
+   }
+   
+   .auth-links a:hover {
+	   color: var(--color-primary);
    }
    
    .auth-links a:hover::after {
 	   transform: scaleX(1);
+	   transform-origin: left;
    }
    
    /* ===================================
@@ -940,5 +1093,111 @@
    .dashboard-item:last-child {
 	   border-bottom: none;
    }
-
    
+   /* Efectos hover mejorados para links del footer */
+   .footer a:hover {
+	   color: var(--color-accent);
+	   transform: translateX(5px);
+	   transition: all var(--transition-smooth);
+   }
+   
+   /* Scroll suave */
+   html {
+	   scroll-behavior: smooth;
+   }
+   
+   /* Mejora de accesibilidad */
+   *:focus {
+	   outline: 3px solid rgba(182,69,48,0.5);
+	   outline-offset: 2px;
+   }
+   
+   button:focus,
+   a:focus,
+   input:focus {
+	   outline: 3px solid rgba(182,69,48,0.5);
+	   outline-offset: 2px;
+   }
+   
+   /* Indicador de carga en botones */
+   .btn.loading {
+	   position: relative;
+	   color: transparent;
+	   pointer-events: none;
+   }
+   
+   .btn.loading::after {
+	   content: '';
+	   position: absolute;
+	   width: 20px;
+	   height: 20px;
+	   top: 50%;
+	   left: 50%;
+	   margin: -10px 0 0 -10px;
+	   border: 3px solid rgba(255,255,255,0.3);
+	   border-radius: 50%;
+	   border-top-color: white;
+	   animation: spin 0.6s linear infinite;
+   }
+   
+   /* Animaciones de entrada por scroll */
+   .fade-in-scroll {
+	   opacity: 0;
+	   transform: translateY(30px);
+	   transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+   }
+   
+   .fade-in-scroll.visible {
+	   opacity: 1;
+	   transform: translateY(0);
+   }
+   
+   /* Mejoras para móviles */
+   @media (max-width: 768px) {
+	   .hero-title {
+		   font-size: 2.5rem;
+	   }
+	   
+	   .hero-subtitle {
+		   font-size: 1.2rem;
+	   }
+	   
+	   .hero-actions {
+		   flex-direction: column;
+		   gap: 1rem;
+	   }
+	   
+	   .hero-actions .btn {
+		   width: 100%;
+	   }
+	   
+	   .auth-container {
+		   padding: 2rem 1.5rem;
+	   }
+	   
+	   .auth-title {
+		   font-size: 2rem;
+	   }
+	   
+	   .navbar-decorations {
+		   display: none;
+	   }
+   }
+   
+   /* Efectos de partículas en hero */
+   @keyframes particle-float {
+	   0%, 100% {
+		   transform: translateY(0) rotate(0deg);
+		   opacity: 0;
+	   }
+	   10% {
+		   opacity: 0.5;
+	   }
+	   90% {
+		   opacity: 0.5;
+	   }
+	   100% {
+		   transform: translateY(-100vh) rotate(360deg);
+		   opacity: 0;
+	   }
+   }
