@@ -74,15 +74,16 @@ $username = AuthMiddleware::username();
                 <i class="fas fa-times"></i>
             </button>
         </div>
+        
         <ul class="sidebar-menu">
             <li class="sidebar-item">
-                <a href="<?php echo url('student/dashboard.php'); ?>" class="sidebar-link">
+                <a href="<?php echo url('student/dashboard.php'); ?>" class="sidebar-link active">
                     <i class="fas fa-home"></i> Inicio
                 </a>
             </li>
             <li class="sidebar-item">
-                <a href="<?php echo url('student/catalogo.php'); ?>" class="sidebar-link active">
-                    <i class="fas fa-books"></i> Catálogo
+                <a href="<?php echo url('student/catalogo.php'); ?>" class="sidebar-link">
+                    <i class="fas fa-book"></i> Catálogo
                 </a>
             </li>
             <li class="sidebar-item">
@@ -93,6 +94,11 @@ $username = AuthMiddleware::username();
             <li class="sidebar-item">
                 <a href="<?php echo url('student/solicitudes.php'); ?>" class="sidebar-link">
                     <i class="fas fa-paper-plane"></i> Mis Solicitudes
+                    <?php if ($pendingRequestCount > 0): ?>
+                        <span style="background: #ffc107; color: #856404; border-radius: 50%; padding: 0.2rem 0.5rem; font-size: 0.75rem; margin-left: 0.5rem;">
+                            <?php echo $pendingRequestCount; ?>
+                        </span>
+                    <?php endif; ?>
                 </a>
             </li>
             <li class="sidebar-item">
@@ -101,30 +107,41 @@ $username = AuthMiddleware::username();
                 </a>
             </li>
         </ul>
+        
+        <!-- Perfil y Logout en Sidebar -->
+        <div class="sidebar-user">
+            <div class="sidebar-user-info">
+                <div class="sidebar-user-avatar" style="background: var(--color-secondary);">
+                    <?php echo $userInitial; ?>
+                </div>
+                <div class="sidebar-user-details">
+                    <h4><?php echo htmlspecialchars($username); ?></h4>
+                    <p>Estudiante</p>
+                </div>
+            </div>
+            <a href="<?php echo url('public/logout.php'); ?>" class="sidebar-logout" style="background: var(--color-secondary);">
+                <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
+            </a>
+        </div>
     </div>
     <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
-    <!-- Navbar -->
-    <nav class="navbar student-navbar">
-        <div class="container">
-            <div class="navbar-content">
-                <button class="toggle-sidebar" id="toggleSidebar">
-                    <i class="fas fa-bars"></i>
-                </button>
-                <a href="<?php echo url('student/dashboard.php'); ?>" class="navbar-brand">Book<span>ary</span></a>
-                <ul class="navbar-nav">
-                    <li>
-                        <span style="color: var(--color-white); margin-right: 1rem;">
-                            <i class="fas fa-user-circle"></i> <?php echo e($username); ?>
-                        </span>
-                    </li>
-                    <li>
-                        <a href="<?php echo url('public/logout.php'); ?>" class="btn btn-secondary btn-sm">
-                            <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
-                        </a>
-                    </li>
-                </ul>
-            </div>
+    <!-- Navbar con decoraciones -->
+    <nav class="navbar student-navbar" style="position: relative;">
+        <div class="navbar-content">
+            <button class="toggle-sidebar" id="toggleSidebar">
+                <i class="fas fa-bars"></i>
+            </button>
+            <a href="<?php echo url('student/dashboard.php'); ?>" class="navbar-brand">Book<span>ary</span></a>
+        </div>
+        
+        <!-- Iconos decorativos dispersos con levitación -->
+        <div class="navbar-decorations">
+            <i class="fas fa-feather-alt navbar-icon" title="Escritura"></i>
+            <i class="fas fa-glasses navbar-icon" title="Lectura"></i>
+            <i class="fas fa-lightbulb navbar-icon" title="Ideas"></i>
+            <i class="fas fa-magic navbar-icon" title="Inspiración"></i>
+            <i class="fas fa-leaf navbar-icon" title="Conocimiento"></i>
         </div>
     </nav>
 

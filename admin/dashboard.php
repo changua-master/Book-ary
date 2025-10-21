@@ -74,6 +74,11 @@ $userInitial = strtoupper(substr($username, 0, 1));
                 </a>
             </li>
             <li class="sidebar-item">
+                <a href="<?php echo url('admin/eventos/index.php'); ?>" class="sidebar-link">
+                    <i class="fas fa-calendar-alt"></i> Eventos
+                </a>
+            </li>
+            <li class="sidebar-item">
                 <a href="<?php echo url('admin/usuarios/index.php'); ?>" class="sidebar-link">
                     <i class="fas fa-users"></i> Usuarios
                 </a>

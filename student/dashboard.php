@@ -71,6 +71,11 @@ $pendingRequestCount = count($pendingRequests);
                 </a>
             </li>
             <li class="sidebar-item">
+                <a href="<?php echo url('student/eventos.php'); ?>" class="sidebar-link">
+                    <i class="fas fa-calendar-alt"></i> Eventos
+                </a>
+            </li>
+            <li class="sidebar-item">
                 <a href="<?php echo url('student/historial.php'); ?>" class="sidebar-link">
                     <i class="fas fa-history"></i> Historial
                 </a>
@@ -195,7 +200,7 @@ $pendingRequestCount = count($pendingRequests);
                             <p style="margin: 0 0 0.5rem 0; font-size: 0.9rem;">
                                 <strong>Devolver antes de:</strong> <?php echo date('d/m/Y', strtotime($loan['fecha_devolucion'])); ?>
                             </p>
-                            <span class="message <?php echo $statusClass; ?>" style="display: inline-block; padding: 0.25rem 0.75rem; border-radius: 0.5rem; font-size: 0.9rem;">
+                            <span class="badge <?php echo $statusClass; ?>">
                                 <?php if ($isOverdue): ?>
                                     <i class="fas fa-exclamation-triangle"></i> ¡Vencido!
                                 <?php elseif ($daysLeft < 3): ?>
@@ -251,6 +256,14 @@ $pendingRequestCount = count($pendingRequests);
                     </div>
                     <h3>Historial</h3>
                     <p>Revisa tu actividad en la biblioteca</p>
+                </a>
+
+                <a href="<?php echo url('student/eventos.php'); ?>" class="dashboard-card student-card" style="background: linear-gradient(135deg, #8FB339 0%, #6B8E4E 100%); color: white;">
+                    <div class="card-icon" style="color: white;">
+                        <i class="fas fa-calendar-star"></i>
+                    </div>
+                    <h3 style="color: white;">Eventos</h3>
+                    <p style="color: rgba(255,255,255,0.9);">Participa en nuestras actividades</p>
                 </a>
             </div>
         </div>
