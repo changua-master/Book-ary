@@ -91,20 +91,24 @@ $userInitial = strtoupper(substr($username, 0, 1));
         </ul>
         
         <!-- Perfil y Logout en Sidebar -->
-        <div class="sidebar-user">
-            <div class="sidebar-user-info">
-                <div class="sidebar-user-avatar">
-                    <?php echo $userInitial; ?>
-                </div>
-                <div class="sidebar-user-details">
-                    <h4><?php echo htmlspecialchars($username); ?></h4>
-                    <p>Administrador</p>
-                </div>
-            </div>
-            <a href="<?php echo url('public/logout.php'); ?>" class="sidebar-logout">
-                <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
-            </a>
+        <!-- Perfil y Logout en Sidebar -->
+<div class="sidebar-user">
+    <div class="sidebar-user-info">
+        <div class="sidebar-user-avatar">
+            <?php echo $userInitial; ?>
         </div>
+        <div class="sidebar-user-details">
+            <h4><?php echo htmlspecialchars($username); ?></h4>
+            <p>Administrador</p>
+        </div>
+    </div>
+    <a href="<?php echo url('admin/perfil.php'); ?>" class="btn btn-secondary btn-sm" style="width: 100%; margin-bottom: 0.5rem; background: var(--color-primary);">
+        <i class="fas fa-user-cog"></i> Configurar Cuenta
+    </a>
+    <a href="<?php echo url('public/logout.php'); ?>" class="sidebar-logout">
+        <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
+    </a>
+</div>
     </div>
     <div class="sidebar-overlay" id="sidebarOverlay"></div>
 

@@ -102,6 +102,11 @@ $username = AuthMiddleware::username();
                 </a>
             </li>
             <li class="sidebar-item">
+                <a href="<?php echo url('student/eventos.php'); ?>" class="sidebar-link">
+                    <i class="fas fa-calendar-alt"></i> Eventos
+                </a>
+            </li>
+            <li class="sidebar-item">
                 <a href="<?php echo url('student/historial.php'); ?>" class="sidebar-link">
                     <i class="fas fa-history"></i> Historial
                 </a>
@@ -119,9 +124,13 @@ $username = AuthMiddleware::username();
                     <p>Estudiante</p>
                 </div>
             </div>
+            <a href="<?php echo url('student/perfil.php'); ?>" class="btn btn-secondary btn-sm" style="width: 100%; margin-bottom: 0.5rem; background: var(--color-primary);">
+        <i class="fas fa-user-cog"></i> Configurar Cuenta
+    </a>
             <a href="<?php echo url('public/logout.php'); ?>" class="sidebar-logout" style="background: var(--color-secondary);">
                 <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
             </a>
+
         </div>
     </div>
     <div class="sidebar-overlay" id="sidebarOverlay"></div>

@@ -48,7 +48,7 @@ $error = AuthMiddleware::getFlash('error');
         
         <ul class="sidebar-menu">
             <li class="sidebar-item">
-                <a href="<?php echo url('student/dashboard.php'); ?>" class="sidebar-link">
+                <a href="<?php echo url('student/dashboard.php'); ?>" class="sidebar-link active">
                     <i class="fas fa-home"></i> Inicio
                 </a>
             </li>
@@ -63,7 +63,17 @@ $error = AuthMiddleware::getFlash('error');
                 </a>
             </li>
             <li class="sidebar-item">
-                <a href="<?php echo url('student/eventos.php'); ?>" class="sidebar-link active">
+                <a href="<?php echo url('student/solicitudes.php'); ?>" class="sidebar-link">
+                    <i class="fas fa-paper-plane"></i> Mis Solicitudes
+                    <?php if ($pendingRequestCount > 0): ?>
+                        <span style="background: #ffc107; color: #856404; border-radius: 50%; padding: 0.2rem 0.5rem; font-size: 0.75rem; margin-left: 0.5rem;">
+                            <?php echo $pendingRequestCount; ?>
+                        </span>
+                    <?php endif; ?>
+                </a>
+            </li>
+            <li class="sidebar-item">
+                <a href="<?php echo url('student/eventos.php'); ?>" class="sidebar-link">
                     <i class="fas fa-calendar-alt"></i> Eventos
                 </a>
             </li>
@@ -74,19 +84,24 @@ $error = AuthMiddleware::getFlash('error');
             </li>
         </ul>
         
+        <!-- Perfil y Logout en Sidebar -->
         <div class="sidebar-user">
             <div class="sidebar-user-info">
                 <div class="sidebar-user-avatar" style="background: var(--color-secondary);">
                     <?php echo $userInitial; ?>
                 </div>
                 <div class="sidebar-user-details">
-                    <h4><?php echo e($username); ?></h4>
+                    <h4><?php echo htmlspecialchars($username); ?></h4>
                     <p>Estudiante</p>
                 </div>
             </div>
+            <a href="<?php echo url('student/perfil.php'); ?>" class="btn btn-secondary btn-sm" style="width: 100%; margin-bottom: 0.5rem; background: var(--color-primary);">
+        <i class="fas fa-user-cog"></i> Configurar Cuenta
+    </a>
             <a href="<?php echo url('public/logout.php'); ?>" class="sidebar-logout" style="background: var(--color-secondary);">
                 <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
             </a>
+
         </div>
     </div>
     <div class="sidebar-overlay" id="sidebarOverlay"></div>

@@ -46,7 +46,7 @@ $userInitial = strtoupper(substr($username, 0, 1));
         
         <ul class="sidebar-menu">
             <li class="sidebar-item">
-                <a href="<?php echo url('admin/dashboard.php'); ?>" class="sidebar-link">
+                <a href="<?php echo url('admin/dashboard.php'); ?>" class="sidebar-link active">
                     <i class="fas fa-home"></i> Inicio
                 </a>
             </li>
@@ -58,6 +58,11 @@ $userInitial = strtoupper(substr($username, 0, 1));
             <li class="sidebar-item">
                 <a href="<?php echo url('admin/solicitudes/index.php'); ?>" class="sidebar-link">
                     <i class="fas fa-paper-plane"></i> Solicitudes
+                    <?php if ($pendingRequests > 0): ?>
+                        <span style="background: #dc3545; color: white; border-radius: 50%; padding: 0.2rem 0.5rem; font-size: 0.75rem; margin-left: 0.5rem;">
+                            <?php echo $pendingRequests; ?>
+                        </span>
+                    <?php endif; ?>
                 </a>
             </li>
             <li class="sidebar-item">
@@ -66,7 +71,7 @@ $userInitial = strtoupper(substr($username, 0, 1));
                 </a>
             </li>
             <li class="sidebar-item">
-                <a href="<?php echo url('admin/eventos/index.php'); ?>" class="sidebar-link active">
+                <a href="<?php echo url('admin/eventos/index.php'); ?>" class="sidebar-link">
                     <i class="fas fa-calendar-alt"></i> Eventos
                 </a>
             </li>
@@ -75,22 +80,32 @@ $userInitial = strtoupper(substr($username, 0, 1));
                     <i class="fas fa-users"></i> Usuarios
                 </a>
             </li>
+            <li class="sidebar-item">
+                <a href="<?php echo url('admin/reportes/index.php'); ?>" class="sidebar-link">
+                    <i class="fas fa-chart-bar"></i> Reportes
+                </a>
+            </li>
         </ul>
         
-        <div class="sidebar-user">
-            <div class="sidebar-user-info">
-                <div class="sidebar-user-avatar">
-                    <?php echo $userInitial; ?>
-                </div>
-                <div class="sidebar-user-details">
-                    <h4><?php echo e($username); ?></h4>
-                    <p>Administrador</p>
-                </div>
-            </div>
-            <a href="<?php echo url('public/logout.php'); ?>" class="sidebar-logout">
-                <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
-            </a>
+        <!-- Perfil y Logout en Sidebar -->
+        <!-- Perfil y Logout en Sidebar -->
+<div class="sidebar-user">
+    <div class="sidebar-user-info">
+        <div class="sidebar-user-avatar">
+            <?php echo $userInitial; ?>
         </div>
+        <div class="sidebar-user-details">
+            <h4><?php echo htmlspecialchars($username); ?></h4>
+            <p>Administrador</p>
+        </div>
+    </div>
+    <a href="<?php echo url('admin/perfil.php'); ?>" class="btn btn-secondary btn-sm" style="width: 100%; margin-bottom: 0.5rem; background: var(--color-primary);">
+        <i class="fas fa-user-cog"></i> Configurar Cuenta
+    </a>
+    <a href="<?php echo url('public/logout.php'); ?>" class="sidebar-logout">
+        <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
+    </a>
+</div>
     </div>
     <div class="sidebar-overlay" id="sidebarOverlay"></div>
 

@@ -49,17 +49,17 @@ $username = AuthMiddleware::username();
 </head>
 <body class="admin-layout">
     
-    <!-- Sidebar -->
-    <div class="sidebar" id="sidebar">
+<div class="sidebar" id="sidebar">
         <div class="sidebar-header">
-            <h3>Panel Administrativo</h3>
+            <h3>Panel Admin</h3>
             <button class="sidebar-close" id="closeSidebar">
                 <i class="fas fa-times"></i>
             </button>
         </div>
+        
         <ul class="sidebar-menu">
             <li class="sidebar-item">
-                <a href="<?php echo url('admin/dashboard.php'); ?>" class="sidebar-link">
+                <a href="<?php echo url('admin/dashboard.php'); ?>" class="sidebar-link active">
                     <i class="fas fa-home"></i> Inicio
                 </a>
             </li>
@@ -69,37 +69,78 @@ $username = AuthMiddleware::username();
                 </a>
             </li>
             <li class="sidebar-item">
-                <a href="<?php echo url('admin/prestamos/index.php'); ?>" class="sidebar-link active">
+                <a href="<?php echo url('admin/solicitudes/index.php'); ?>" class="sidebar-link">
+                    <i class="fas fa-paper-plane"></i> Solicitudes
+                    <?php if ($pendingRequests > 0): ?>
+                        <span style="background: #dc3545; color: white; border-radius: 50%; padding: 0.2rem 0.5rem; font-size: 0.75rem; margin-left: 0.5rem;">
+                            <?php echo $pendingRequests; ?>
+                        </span>
+                    <?php endif; ?>
+                </a>
+            </li>
+            <li class="sidebar-item">
+                <a href="<?php echo url('admin/prestamos/index.php'); ?>" class="sidebar-link">
                     <i class="fas fa-book-reader"></i> Préstamos
                 </a>
             </li>
+            <li class="sidebar-item">
+                <a href="<?php echo url('admin/eventos/index.php'); ?>" class="sidebar-link">
+                    <i class="fas fa-calendar-alt"></i> Eventos
+                </a>
+            </li>
+            <li class="sidebar-item">
+                <a href="<?php echo url('admin/usuarios/index.php'); ?>" class="sidebar-link">
+                    <i class="fas fa-users"></i> Usuarios
+                </a>
+            </li>
+            <li class="sidebar-item">
+                <a href="<?php echo url('admin/reportes/index.php'); ?>" class="sidebar-link">
+                    <i class="fas fa-chart-bar"></i> Reportes
+                </a>
+            </li>
         </ul>
+        
+        <!-- Perfil y Logout en Sidebar -->
+        <!-- Perfil y Logout en Sidebar -->
+<div class="sidebar-user">
+    <div class="sidebar-user-info">
+        <div class="sidebar-user-avatar">
+            <?php echo $userInitial; ?>
+        </div>
+        <div class="sidebar-user-details">
+            <h4><?php echo htmlspecialchars($username); ?></h4>
+            <p>Administrador</p>
+        </div>
+    </div>
+    <a href="<?php echo url('admin/perfil.php'); ?>" class="btn btn-secondary btn-sm" style="width: 100%; margin-bottom: 0.5rem; background: var(--color-primary);">
+        <i class="fas fa-user-cog"></i> Configurar Cuenta
+    </a>
+    <a href="<?php echo url('public/logout.php'); ?>" class="sidebar-logout">
+        <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
+    </a>
+</div>
     </div>
     <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
-    <!-- Navbar -->
-    <nav class="navbar">
-        <div class="container">
-            <div class="navbar-content">
-                <button class="toggle-sidebar" id="toggleSidebar">
-                    <i class="fas fa-bars"></i>
-                </button>
-                <a href="<?php echo url('admin/dashboard.php'); ?>" class="navbar-brand">Book<span>ary</span></a>
-                <ul class="navbar-nav">
-                    <li>
-                        <span style="color: var(--color-white); margin-right: 1rem;">
-                            <i class="fas fa-user-circle"></i> <?php echo e($username); ?>
-                        </span>
-                    </li>
-                    <li>
-                        <a href="<?php echo url('public/logout.php'); ?>" class="btn btn-secondary btn-sm">
-                            <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
-                        </a>
-                    </li>
-                </ul>
-            </div>
+    <!-- Navbar con decoraciones -->
+    <nav class="navbar" style="position: relative;">
+        <div class="navbar-content">
+            <button class="toggle-sidebar" id="toggleSidebar">
+                <i class="fas fa-bars"></i>
+            </button>
+            <a href="<?php echo url('admin/dashboard.php'); ?>" class="navbar-brand">Book<span>ary</span></a>
+        </div>
+        
+        <!-- Iconos decorativos dispersos con levitación -->
+        <div class="navbar-decorations">
+            <i class="fas fa-book navbar-icon" title="Biblioteca"></i>
+            <i class="fas fa-star navbar-icon" title="Destacado"></i>
+            <i class="fas fa-heart navbar-icon" title="Favoritos"></i>
+            <i class="fas fa-bookmark navbar-icon" title="Marcadores"></i>
+            <i class="fas fa-crown navbar-icon" title="Premium"></i>
         </div>
     </nav>
+
 
     <!-- Contenido Principal -->
     <main class="main-content" id="mainContent">
