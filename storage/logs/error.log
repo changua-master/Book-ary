@@ -132,3 +132,5 @@ Stack trace:
 [19-Oct-2025 12:10:26 America/Bogota] PHP Warning:  Undefined variable $userInitial in C:\xampp\htdocs\Book-ary\student\catalogo.php on line 115
 [19-Oct-2025 12:11:33 America/Bogota] PHP Warning:  Undefined variable $pendingRequestCount in C:\xampp\htdocs\Book-ary\student\catalogo.php on line 97
 [19-Oct-2025 12:11:33 America/Bogota] PHP Warning:  Undefined variable $userInitial in C:\xampp\htdocs\Book-ary\student\catalogo.php on line 115
+[20-Oct-2025 22:22:01 America/Bogota] PHP Warning:  Undefined variable $pendingRequestCount in C:\xampp\htdocs\Book-ary\student\catalogo.php on line 97
+[20-Oct-2025 22:22:01 America/Bogota] PHP Warning:  Undefined variable $userInitial in C:\xampp\htdocs\Book-ary\student\catalogo.php on line 115
